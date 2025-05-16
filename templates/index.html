@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Orientation scolaire personnalisée - HETIC Style</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet" />
+    <style>
+        /* Reset simple */
+        * {
+            margin: 0; padding: 0; box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: #fff;
+            color: #222;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            padding: 20px;
+        }
+
+        header {
+            width: 100%;
+            background-color: #001f3f; /* bleu HETIC */
+            color: white;
+            padding: 15px 30px;
+            font-weight: 600;
+            font-size: 1.8rem;
+            letter-spacing: 2px;
+            text-align: center;
+            margin-bottom: 40px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        main {
+            width: 100%;
+            max-width: 600px;
+            background: #f8fafd;
+            padding: 40px 30px;
+            border-radius: 10px;
+            box-shadow: 0 12px 25px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: #001f3f;
+            font-weight: 700;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        label {
+            font-weight: 600;
+            color: #001f3f;
+            margin-bottom: 8px;
+        }
+
+        input[type="file"],
+        input[type="text"] {
+            padding: 12px 15px;
+            border: 2px solid #001f3f;
+            border-radius: 6px;
+            font-size: 1rem;
+            outline-offset: 2px;
+            transition: outline-color 0.3s ease;
+        }
+
+        input[type="file"]:focus,
+        input[type="text"]:focus {
+            outline: 3px solid #005288;
+        }
+
+        button {
+            background-color: #001f3f;
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #005288;
+        }
+
+        /* Message flash */
+        .flash-message {
+            background-color: #ffdddd;
+            border-left: 6px solid #ff4b4b;
+            padding: 15px 20px;
+            margin-bottom: 25px;
+            border-radius: 5px;
+            color: #990000;
+            font-weight: 600;
+        }
+
+        /* Responsive */
+        @media(max-width: 480px) {
+            main {
+                padding: 30px 20px;
+            }
+            button {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    ORIENTATION SCOLAIRE PERSONNALISÉE
+</header>
+
+<main>
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        {% for msg in messages %}
+          <div class="flash-message">{{ msg }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    <h1>Obtenez votre orientation scolaire personnalisée</h1>
+    <form method="POST" enctype="multipart/form-data">
+        <div>
+            <label for="cv">Charger un CV (PDF) :</label><br />
+            <input type="file" name="cv" id="cv" accept=".pdf" required />
+        </div>
+        <div>
+            <label for="domaine">Domaine d’étude envisagé :</label><br />
+            <input type="text" name="domaine" id="domaine" placeholder="Ex: Data Science, Design, Marketing" required />
+        </div>
+        <div>
+            <label for="ville">Ville souhaitée :</label><br />
+            <input type="text" name="ville" id="ville" placeholder="Ex: Paris, Lyon, Nantes" required />
+        </div>
+        <button type="submit">Obtenir l’orientation</button>
+    </form>
+</main>
+
+</body>
+</html>
