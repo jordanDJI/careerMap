@@ -14,30 +14,38 @@
             margin: auto;
         }
         h2 {
-            color: #001f3f;
+            color: #02572a;
             margin-bottom: 20px;
+            position: center;
         }
         .orientation-block {
             background-color: #ffffff;
-            border-left: 6px solid #001f3f;
+            border-left: 6px solid #003f1f;
             padding: 20px;
             border-radius: 10px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 8px rgba(73, 199, 124, 0.1);
             margin-bottom: 30px;
             white-space: pre-line;
+
+            background-image: url('/static/img/HETIC.jpg'); /* ton image filigrane */
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: contain;
+            background-blend-mode: lighten; /* ou multiply selon l'effet voulu */
+            opacity: 1;
         }
         a.download-link {
             display: inline-block;
             margin-top: 20px;
             padding: 12px 20px;
-            background-color: #001f3f;
+            background-color: #02572a;
             color: white;
             text-decoration: none;
             border-radius: 8px;
             font-weight: bold;
         }
         a.download-link:hover {
-            background-color: #005288;
+            background-color: #37ce09;
         }
     </style>
 </head>
@@ -59,6 +67,17 @@ function telechargerPDF() {
         {{ recommandation|safe }}
     </div>
 
-    <a class="download-link" href="/download/{{ pdf_file }}">📄 Télécharger au format PDF</a>
+    <a class="download-link" onclick="telechargerPDF(); return false;">📄 Télécharger au format PDF</a>
+
+    <script>
+        function telechargerPDF() {
+            const lien = document.createElement('a');
+            lien.href = "{{ url_for('download_file', filename=pdf_file) }}";
+            lien.download = "{{ pdf_file }}";  // Nom du fichier suggéré
+            document.body.appendChild(lien);
+            lien.click();
+            document.body.removeChild(lien);
+        }
+    </script>
 </body>
 </html>
