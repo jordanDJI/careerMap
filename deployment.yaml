@@ -1,0 +1,44 @@
+# deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: careermap-deployment
+  labels:
+    app: careermap
+spec:
+  replicas: 1                 # ajuste à 2‑3 si tu veux tester le scaling
+  selector:
+    matchLabels:
+      app: careermap
+  template:
+    metadata:
+      labels:
+        app: careermap
+    spec:
+      containers:
+      - name: careermap
+        image: careermap-python:latest   # image locale
+        imagePullPolicy: IfNotPresent    # évite un pull externe
+        ports:
+        - containerPort: 5000
+        resources:
+          requests:                      # <‑‑ utiles plus tard pour l’analyse FinOps
+            cpu: "100m"
+            memory: "128Mi"
+          limits:
+            cpu: "200m"
+            memory: "256Mi"
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: careermap-service
+spec:
+  type: NodePort          # expose sur un port du nœud Minikube
+  selector:
+    app: careermap
+  ports:
+  - port: 80              # port « interne » du service
+    targetPort: 5000      # port exposé par le conteneur
+    nodePort: 30050       # port choisi (entre 30000‑32767) accessible en local

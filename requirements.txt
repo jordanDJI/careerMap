@@ -1,0 +1,6 @@
+python-dotenv
+mistralai
+pybase64
+requests
+fpdf
+flask==2.3.3

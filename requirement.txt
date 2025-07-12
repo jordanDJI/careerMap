@@ -1,5 +1,0 @@
-python-dotenv
-mistralai
-pybase64
-request
-fpdf

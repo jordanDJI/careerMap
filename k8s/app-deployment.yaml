@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: careermap
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: careermap
+  template:
+    metadata:
+      labels:
+        app: careermap
+    spec:
+      containers:
+        - name: careermap
+          image: careermap:latest  # à construire depuis ton dossier `back/`
+          ports:
+            - containerPort: 5000
+          envFrom:
+            - configMapRef:
+                name: career-config
